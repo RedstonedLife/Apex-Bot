@@ -10,25 +10,11 @@ from cogs import Help
 # Events
 
 # # # # # #
-#purge = await ctx.message.channel.purge(limit=amt)
 with open('cpu\PROCFILE.json') as f:
     data = json.load(f)
 ########
 bot = commands.Bot(command_prefix=data['prefix'],description="Apex Bot is a bot that can check stats for players, It also comes with some handy commands.")
 ########
-
-@bot.command(pass_context=True)
-async def purge(ctx, amt : int = 5):
-    
-    purge = await ctx.message.channel.purge(limit=amt)
-    data = json.dumps({})
-    f = io.StringIO()
-    for m in purge:
-            mc = str(str(m.clean_content).encode('utf8')).split("b'",1)[1]
-            f.write("MSG ID: " + str(m.id) + " | Author Name and Hash: " + str(m.author.name) + "#" + str(m.author.discriminator) + " |  Timestamp: " +str(m.created_at)+" | Message Content: " + str(mc) +" |\n")
-    print(f.getvalue())
-    await ctx.send(file=discord.File(fp=io.BytesIO(str(f.getvalue()),filename="purge.txt")))
-    f.close()
     
 
 @bot.event
